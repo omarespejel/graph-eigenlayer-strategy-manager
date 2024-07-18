@@ -1,0 +1,54 @@
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: StrategyManager
+    network: mainnet
+    source:
+    ## proxy address
+      address: "0x858646372CC42E1A627fcE94aa7A7033e7CF075A"
+      abi: StrategyManager
+      startBlock: 19492759
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Deposit
+        - Initialized
+        - OwnershipTransferred
+        - Paused
+        - PauserRegistrySet
+        - StrategyAddedToDepositWhitelist
+        - StrategyRemovedFromDepositWhitelist
+        - StrategyWhitelisterChanged
+        - Unpaused
+        - UpdatedThirdPartyTransfersForbidden
+      abis:
+        - name: StrategyManager
+          file: ./abis/StrategyManager.json
+      eventHandlers:
+        - event: Deposit(address,address,address,uint256)
+          handler: handleDeposit
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Paused(indexed address,uint256)
+          handler: handlePaused
+        - event: PauserRegistrySet(address,address)
+          handler: handlePauserRegistrySet
+        - event: StrategyAddedToDepositWhitelist(address)
+          handler: handleStrategyAddedToDepositWhitelist
+        - event: StrategyRemovedFromDepositWhitelist(address)
+          handler: handleStrategyRemovedFromDepositWhitelist
+        - event: StrategyWhitelisterChanged(address,address)
+          handler: handleStrategyWhitelisterChanged
+        - event: Unpaused(indexed address,uint256)
+          handler: handleUnpaused
+        - event: UpdatedThirdPartyTransfersForbidden(address,bool)
+          handler: handleUpdatedThirdPartyTransfersForbidden
+      file: ./src/strategy-manager.ts

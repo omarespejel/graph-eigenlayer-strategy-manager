@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "StrategyManager": {
+      "address": "0x858646372CC42E1A627fcE94aa7A7033e7CF075A",
+      "startBlock": 19492759
+    }
+  }
+}
